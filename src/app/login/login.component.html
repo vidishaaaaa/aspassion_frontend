@@ -1,0 +1,27 @@
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form (ngSubmit)="onLogin()">
+                <div class="input-box">
+                    <input type="email" [(ngModel)]="email" name="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" [(ngModel)]="password" name="password" required>
+                    <label>Password</label>
+                </div>
+                <div class="forgot-pass">
+                    <a href="#">Forgot your password?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="signup-link">
+                    <p>Don't have an account? 
+                        <a [routerLink]="['/signup']" style="cursor: pointer; text-decoration: underline; color: rgb(63, 191, 238);">Sign up here</a>
+
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
