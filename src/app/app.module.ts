@@ -4,15 +4,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth.interceptor';  // Import the interceptor
+import { AppRoutingModule } from './app-routing.module'; 
+import { LoginComponent } from './login/login.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // Your other components
+    LoginComponent,
+   
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,  // Import HttpClientModule to enable HTTP requests
+    HttpClientModule,
+    AppRoutingModule, // Include AppRoutingModule if you have defined it
+    RouterModule,     // Ensure RouterModule is added here
+  // Import HttpClientModule to enable HTTP requests
     // Other imports...
   ],
   providers: [

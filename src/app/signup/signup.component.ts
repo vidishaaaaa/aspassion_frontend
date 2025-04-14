@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';  // Import HttpClient
 import { AuthService } from '../auth.service';
 
+
+
+
 @Component({
   standalone: true,
   selector: 'app-signup',
