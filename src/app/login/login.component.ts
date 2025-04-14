@@ -1,38 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component } from '@angular/core';
+import { AuthService } from '../auth.service'; // Import the AuthService
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  standalone: true,
-  imports: [FormsModule , RouterModule],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        // Reset form or any other logic on route re-visit
-        this.email = '';
-        this.password = '';
-      });
-  }
+  constructor(private authService: AuthService) {}
 
   onLogin() {
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
+    const credentials = {
+      email: this.email,
+      password: this.password,
+    };
+
+    this.authService.login(credentials).subscribe(
+      (response) => {
+        const token = response; // Assuming backend sends the JWT token
+        this.authService.storeToken(token);
+        console.log('Login successful!');
+        alert('Login successful!');
+      },
+      (error) => {
+        console.error('Login error:', error);
+        alert('Login failed!');
+      }
+    );
   }
 }
-
-
-
-

@@ -1,26 +1,27 @@
+// src/app/app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { RouterModule } from '@angular/router';
-import { routes } from './app.routes'; 
+import { AuthInterceptor } from './auth.interceptor';  // Import the interceptor
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    SignupComponent
+    // Your other components
   ],
   imports: [
     BrowserModule,
-    FormsModule,  // <-- Ensure FormsModule is listed before RouterModule
-    AppRoutingModule,
-    RouterModule.forRoot(routes)  // <-- Ensure you configure the RouterModule correctly
+    HttpClientModule,  // Import HttpClientModule to enable HTTP requests
+    // Other imports...
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,  // Register the AuthInterceptor
+      multi: true,  // Allow multiple interceptors
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
